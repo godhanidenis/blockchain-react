@@ -37,7 +37,7 @@ function App() {
   const validatewalletaddress = (value) => {
     return String(value)
       .toLowerCase()
-      .match(/^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$/);
+      .match(/^([a-z0-9]+-){4}[a-z0-9]+$/);
   };
 
   useEffect(() => {
