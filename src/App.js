@@ -187,7 +187,7 @@ function App() {
         />
       </div>
       <div className="col-12 justify-content-around d-flex pt-4">
-        <div className="col-5 bg-body border-8 shadow w-480 pb-4">
+        <div className="col-5 bg-body border-8 shadow w-480 pb-4 w-90">
           {/* <div className="col d-flex"> */}
           {/* <div className="col d-flex">
               <div className="col-6  text-center fs-4 fw-bolder tab text-color">
@@ -591,7 +591,7 @@ function App() {
 
               <div className="border-hr"></div>
               <div className="col-12">
-                <div className="justify-content-center d-flex ">
+                <div className="justify-content-center d-flex dntba">
                   <div className="create-account">
                     Don't have a Blockchain Account?
                   </div>
